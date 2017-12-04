@@ -16,7 +16,7 @@ body{
 .solusi-login-box{
   margin: auto;
   height: auto;
-  width: 310px; 
+  width: 310px;
 }
 .solusi-login-box .form-group{
   margin-bottom: 1.75rem;
@@ -33,13 +33,13 @@ body{
 }
 p.solusi-forgot-pass{
   width: 150px;
-  float: left; 
+  float: left;
   padding-top: 8px;
   font-weight: 400;
   color: white;
 }
 .solusi-login button.btn-warning{
-  background-color:#f39c12; 
+  background-color:#f39c12;
   border-color:#f39c12;
   float: right;
   width: 130px;
@@ -269,7 +269,7 @@ table{
   max-height: 23px;
   word-wrap: break-word;
   white-space: nowrap;
-  /* overflow: initial; 
+  /* overflow: initial;
   overflow-y: -webkit-paged-y;
 }*/
 .dl-horizontal dt {
@@ -347,7 +347,7 @@ background:#5FE89F;
   overflow: hidden;
 }
 .text {
-  white-space: nowrap; 
+  white-space: nowrap;
   color: #2d2b2b;
   font-size: 1rem;
   position: absolute;
@@ -563,7 +563,7 @@ nav a {
     -webkit-transform: translateY(50%);
     opacity: 0;
   }
-  100% { 
+  100% {
     opacity: 1;
     -webkit-transform: translateY(0);
   }
@@ -574,7 +574,7 @@ nav a {
     -moz-transform: translateY(50%);
     opacity: 0;
   }
-  100% { 
+  100% {
     opacity: 1;
     -moz-transform: translateY(0);
   }
@@ -585,7 +585,7 @@ nav a {
     transform: translateY(50%);
     opacity: 0;
   }
-  100% { 
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
@@ -632,7 +632,7 @@ nav a {
     -webkit-transform: scale(0);
     opacity: 0;
   }
-  100% { 
+  100% {
     opacity: 1;
     -webkit-transform: scale(1);
   }
@@ -643,7 +643,7 @@ nav a {
     -moz-transform: scale(0);
     opacity: 0;
   }
-  100% { 
+  100% {
     opacity: 1;
     -moz-transform: scale(1);
   }
@@ -654,7 +654,7 @@ nav a {
     transform: scale(0);
     opacity: 0;
   }
-  100% { 
+  100% {
     opacity: 1;
     transform: scale(1);
   }

@@ -24,48 +24,10 @@ else if($aksi == 'add new'){
 		$box_title  = 'Add User';
 }
 ?>
-<!Doctype html>
-<html>
-<head>
+<?php $this->load->view('asset'); ?>
 	<title><?php echo $title ?></title>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-</head>
-<body>
-	<div id="mySidenav" class="sidenav">
-	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	  	<div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/manage_user');?>">Manage User</a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/project');?>"><span data-hover="Manage Project">Manage Project</span></a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/report');?>">Reports</a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/logout');?>">Sign Out</a>
-        </div>
-	</div>
-	<div id="main">
-		<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-		  	<div class="container-fluid"  id="nav">
-		  		<span id="burger" style="font-size:30px;cursor:pointer;margin-right:20px" onclick="openNav()">&#9776;</span>
-		  		<!-- <a class="navbar-brand" href="#">Solusi247</a> -->
-	  			<ul class="navbar-nav mx-auto">
-                        <li class="nav-item  cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/c_navigasi');?>"><i class="material-icons">dashboard</i><span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/manage_user/add/user');?>"><i class="material-icons">person_add</i> 
-                       </a>
-                    </li>
-                    <li class="nav-item cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/add/project');?> "><i class="material-icons">create_new_folder</i> 
-                        </a>
-                    </li>
-                </ul>
-		  	</div>
-		</nav>
+<?php $this->load->view('navigasi'); ?>
 		<div class="container-fluid dashboard px-4">
 			<div class="row">
 				<div class="col-md-12">
@@ -130,11 +92,11 @@ else if($aksi == 'add new'){
 							  		</div>
 							  </div>
 							  </div>
-							  
-							  <div class="form-group mt-3"> 
+
+							  <div class="form-group mt-3">
 							    <div class="col-sm-offset-2 col-sm-10">
-							      <button type="submit" class="btn btn-default mr-3">Cancel</button>
-							      <button type="submit" class="btn btn-primary">Save</button>
+							      <a type="submit" class="button btn btn-default mr-3 text-dark" href="<?php echo base_url('index.php/manage_user/')?>">Cancel</a>
+							      <a href="#" type="submit" class="btn btn-primary text-white">Save</a>
 							      <!-- <button class="btn btn-7 btn-7h icon-envelope">Coba</button> -->
 							    </div>
 							  </div>
@@ -147,7 +109,7 @@ else if($aksi == 'add new'){
 	</div>
 </body>
 <script>
-	$(document).ready(function(){	    
+	$(document).ready(function(){
 		$("#form_user").submit(function(e){
 	    	e.preventDefault();
 
@@ -167,11 +129,11 @@ else if($aksi == 'add new'){
 						data : $('#form_user').serialize(),
 						url: url,
 						success: function(data){
-							
+
 							$('#put').text(data);
 							$('#form_user')[0].reset();
 						}
-			}); 
+			});
 	    });
 
 
@@ -192,11 +154,3 @@ else if($aksi == 'add new'){
 $("#form_user").validate();
 </script>
 </html>
-
-
-
-		
-
-
-
-

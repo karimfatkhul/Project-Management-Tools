@@ -1,7 +1,8 @@
 
 <?php $this->load->view('asset'); ?>
+<title>Dashboard | Solusi 247</title>
 <?php $this->load->view('navigasi'); ?>
-<div class="container-fluid dashboard px-4">
+  <div class="container-fluid dashboard px-4">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row mb-3">
@@ -149,6 +150,8 @@
                 </div>
             </div>
 <script type="text/javascript" src="<?php echo base_url('assets/js/Chart.min.js'); ?>"></script>
+</div>
+</body>
 <script>
 function myFunction() {
   // Declare variables
@@ -257,4 +260,4 @@ $(function () {
   areaChart.Line(areaChartData, areaChartOptions);
 });
 </script>
-<?php $this->load->view('foot'); ?>
+</html>
