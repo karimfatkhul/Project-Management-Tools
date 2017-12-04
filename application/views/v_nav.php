@@ -1,46 +1,7 @@
-<!Doctype html>
-<html>
-<head>
-    <title>Dashboard | Solusi247</title>
-</head>
 
-<body>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/manage_user');?>">Manage User</a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/project');?>"><span data-hover="Manage Project">Manage Project</span></a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/report');?>">Reports</a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/logout');?>">Sign Out</a>
-        </div>
-    </div>
-        <div id="main">
-            <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-                <div class="container-fluid" id="nav">
-                    <span id="burger" style="font-size:30px;cursor:pointer;margin-right:20px" onclick="openNav()">&#9776;</span>
-                    <!-- <a class="navbar-brand" href="#">Solusi247</a> -->
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item active cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/c_navigasi');?>" data-toggle="tooltip" data-placement="top" title="Dashboard"><i class="material-icons">dashboard</i><span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/manage_user/add/user');?>" data-toggle="tooltip" data-placement="top" title="Create User"><i class="material-icons">person_add</i> 
-                       </a>
-                    </li>
-                    <li class="nav-item cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/add/project');?> " data-toggle="tooltip" data-placement="top" title="Create Project"><i class="material-icons">create_new_folder</i> 
-                        </a>
-                    </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="container-fluid dashboard px-4">
+<?php $this->load->view('asset'); ?>
+<?php $this->load->view('navigasi'); ?>
+<div class="container-fluid dashboard px-4">
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row mb-3">
@@ -101,7 +62,7 @@
                            <div class="col-md-3 ">
                              <div class="box grad">
                                <div class="box-body">
-                                 
+
                                  <h1 style="margin-left:15px; margin-bottom:0"><?php echo $counter['on_progress'];?></h1>
                                  <p class="small text-muted" >On Progress</p>
                                            <div class="mini-box" style="background:#45D893;">
@@ -113,7 +74,7 @@
                            <div class="col-md-3 ">
                              <div class="box grad">
                                <div class="box-body" style="border-right:0px !important;">
-                                 
+
                                  <h1 style="margin-left:15px; margin-bottom:0"><?php echo $counter['done'];?></h1>
                                  <p class="small text-muted">Done</p>
                                            <div class="mini-box" style="background:#5FE89F;">
@@ -121,7 +82,7 @@
                                            </div>
                                </div>
                              </div>
-                           </div>         
+                           </div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -146,7 +107,7 @@
                                     </tr>
                                   </thead>
                                   <tbody >
-                                  <?php 
+                                  <?php
                                     foreach($all_project as $u){
                                         $nama_project = $u->nama_project;
                                         $progresh = $u->progresh;
@@ -187,16 +148,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-</body>
 <script type="text/javascript" src="<?php echo base_url('assets/js/Chart.min.js'); ?>"></script>
 <script>
-// $(".nav-item").on("click", function(){
-//    $(".nav").find(".active").removeClass("active");
-//    $(this).parent().addClass("active");
-// });
 function myFunction() {
-  // Declare variables 
+  // Declare variables
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
@@ -212,7 +167,7 @@ function myFunction() {
       } else {
         tr[i].style.display = "none";
       }
-    } 
+    }
   }
 }
 function openNav() {
@@ -298,11 +253,8 @@ $(function () {
     //Boolean - whether to make the chart responsive to window resizing
     responsive: true
   };
-
   //Create the line chart
   areaChart.Line(areaChartData, areaChartOptions);
-
 });
-
 </script>
-</html>
+<?php $this->load->view('foot'); ?>

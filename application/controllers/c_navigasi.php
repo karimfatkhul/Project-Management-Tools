@@ -14,11 +14,9 @@ $this->load->library('session');
            redirect(base_url());
         }
 }
-
-
 function index(){
-  $this->load->view('asset');
-
+  // $this->load->view('asset');
+  // $this->load->view('navigasi');
   if($this->session->userdata('akses') == 'admin'){
     $data['counter'] = $this->m_navigasi->m_con_all();
     $data['all_project'] = $this->db->get('tabel_project')->result();
