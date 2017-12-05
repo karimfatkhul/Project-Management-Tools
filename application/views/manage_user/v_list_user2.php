@@ -9,11 +9,11 @@
 						<a href="<?php echo base_url('index.php/manage_user/add/user')?>" class="btn btn-info btn-block text-white">Add New User</a>
 					</div>
 					<div class="row">
+						<!-- User Summary -->
 						<div class="box">
 						  	<div class="box-header">
 						    	<h3 class="box-title">User Summary</h3>
 						  	</div>
-						  <!-- /.box-header -->
 						  	<div class="box-body">
 						  		<table class="table table-condensed">
 						  		  <tr>
@@ -42,11 +42,11 @@
 					</div>
 				</div>
 				<div class="col-md-9">
+					<!-- User List -->
 					<div class="box">
 					  <div class="box-header">
 					    <h3 class="box-title">User List</h3>
 					  </div>
-					  <!-- /.box-header -->
 					  <div class="box-body">
 					    <table id="example" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 					      <thead>
@@ -119,9 +119,7 @@
 					    	}
 					    </script>
 					  </div>
-					  <!-- /.box-body -->
 					</div>
-					<!-- /.box -->
 				</div>
 			</div>
 		</div>
@@ -130,21 +128,9 @@
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-
+<?php $this->load->view('function'); ?>
 <script>
-function openNav() {
-    document.getElementById("mySidenav").style.width = "200px";
-    document.getElementById("main").style.marginLeft = "200px";
-    document.getElementById("nav").style.marginLeft = "200px";
-    document.getElementById("burger").style.display = "none";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-    document.getElementById("nav").style.marginLeft = "auto";
-    document.getElementById("burger").style.display = "block";
-}
+	//Load datatable
  $(document).ready(function() {
     $('#example').DataTable();
 } );

@@ -4,27 +4,27 @@ class M_project extends CI_Model
 {
 
 function __construct(){
-parent::__construct(); 
+parent::__construct();
 }
- 
+
 /// FUNGSI ADMIN BUAT CRUD PROJECT ............!!!!! HERE THE MODEL
     function m_list_project(){                // Ambil daftar project
             $this->db->order_by('id_project','desc');
            return $query = $this->db->get('tabel_project')->result();
-           
+
     }
     function m_list_user_project($id_user){                // Ambil daftar project user
 
            return $query = $this->db->query("SELECT * FROM tabel_project a, t_team_project b
-                                                WHERE a.id_project = b.from_id_project 
+                                                WHERE a.id_project = b.from_id_project
                                                 AND b.from_id_user = '$id_user' ")->result();
-           
+
     }
 
     function m_act_role($id_project,$id_user){          // Ambil role user dalam project
-            return $query = $this->db->query("SELECT role 
-                                                FROM t_team_project 
-                                                WHERE from_id_user = '$id_user' 
+            return $query = $this->db->query("SELECT role
+                                                FROM t_team_project
+                                                WHERE from_id_user = '$id_user'
                                                 AND from_id_project = '$id_project' ")->result();
     }
 
@@ -42,18 +42,19 @@ parent::__construct();
                 );
 
             //$this->db->set($values);
-            $this->db->query("INSERT INTO tabel_project(nama_project,start_date,finish_date,status_project) 
+            $this->db->query("INSERT INTO tabel_project(nama_project,start_date,finish_date,status_project)
                                     VALUES('".$data['nama_project']."','".$data['start_date']."','".$data['finish_date']."','".$data['status_project']."')");
 
              $id_project = $this->db->insert_id();
-             $members = $this->input->post('members');
+             $members   = $this->input->post('members');
+             $role      = $this->input->post('role');
 
              if(isset($members)){
                 $n = count($members);
-                $i =0; 
+                $i =0;
                 for($i;$i<$n;$i++){
-                    $this->db->query("INSERT INTO t_team_project(from_id_user,from_id_project) 
-                                            VALUES('".$members[$i]."',' $id_project') ");
+                    $this->db->query("INSERT INTO t_team_project(from_id_user,from_id_project,role)
+                                            VALUES('".$members[$i]."',' $id_project','".$role[$i]."') ");
                 }
              }
     }
@@ -76,22 +77,22 @@ parent::__construct();
 
          return $data; */
     }
-    
+
    function m_candidate($value0){
-        return $query = $this->db->get('tabel_user')->result(); 
+        return $query = $this->db->get('tabel_user')->result();
     }
 
     function m_view_p_members($value0){               // ambil daftar anggota per project
 
-         return   $query = $this->db->query("SELECT id_user,nama_user,role  
+         return   $query = $this->db->query("SELECT id_user,nama_user,role
                                         FROM t_team_project a, tabel_user b
-                                        WHERE a.from_id_user = b.id_user 
+                                        WHERE a.from_id_user = b.id_user
                                             AND from_id_project = '$value0'")->result();
     }
-    
+
     function m_view_p_task($value0){               // ambil daftar task per project
 
-         return   $query = $this->db->query("SELECT * FROM tabel_task   
+         return   $query = $this->db->query("SELECT * FROM tabel_task
                                                       WHERE from_id_project = '$value0'")->result();
     }
 
@@ -105,42 +106,51 @@ parent::__construct();
                     'status_project' => $this->input->post('status_project')
                     );
 
-                $this->db->query("UPDATE tabel_project 
+                $this->db->query("UPDATE tabel_project
                                     SET nama_project='".$data['nama_project']."',
                                         start_date='".$data['start_date']."',
                                         finish_date='".$data['finish_date']."',
                                         status_project='".$data['status_project']."'
                                   WHERE id_project='$id' ");
-            
-                 $members = $this->input->post('members');
+
+                 $members   = $this->input->post('members');
+                 $role      = $this->input->post('role');
                  $initial_d = 0;
                 if(isset($members)){
-                    //$n = count($members);   
-                    //$i =0; 
+                    //$n = count($members);
+                    $i = 0;
                     foreach($members as $id_user){
+
                                 $this->db->where('from_id_project',$id);
                                 $this->db->where('from_id_user',$id_user);
                         $cek = $this->db->get('t_team_project')->num_rows();
-                        
+
                         if($cek < 1){
-                            $this->db->query("INSERT INTO t_team_project(from_id_user,from_id_project) 
-                                                VALUES('$id_user','$id') ");
+                            $this->db->query("INSERT INTO t_team_project(from_id_user,from_id_project,role)
+                                                VALUES('$id_user','$id','".$role[$i]."') ");
                         }
-                        
+                        else {
+                            $this->db->query("UPDATE t_team_project SET role = '".$role[$i]."'
+                                                    WHERE from_id_project = '$id'
+                                                    AND from_id_user = '".$id_user."' ");
+                        }
+                        $i++;
+
+
                     }
                     $initial_d = implode(',',$members);
 
                  }
-                    
-                    $this->db->query("DELETE FROM t_team_project 
-                                                WHERE from_id_project = '$id' 
+
+                    $this->db->query("DELETE FROM t_team_project
+                                                WHERE from_id_project = '$id'
                                                     AND from_id_user NOT IN ($initial_d) ");
-                
+
 
         }
     function m_delete_project($id){                              // Hapus project
 
-            $this->db->query("DELETE FROM tabel_project     
+            $this->db->query("DELETE FROM tabel_project
                                      WHERE id_project='$id' ");
     }
 

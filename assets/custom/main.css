@@ -151,7 +151,7 @@ li.nav-item.active > .nav-link{
 }
 .box-header .box-title {
   display: inline-block;
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   line-height: 1;
 }
@@ -249,7 +249,7 @@ li.nav-item.active > .nav-link{
 }
 canvas#areaChart{
   width: 100% !important;
-  height: 350px !important;
+  height: 300px !important;
 }
 .box.grad{
   height: 90px;
@@ -659,6 +659,45 @@ nav a {
     transform: scale(1);
   }
 }
-table.table-sm td{
-  padding: 0.5rem !important;
+table#boards td{
+ padding: .5rem .35rem !important;
+}
+.box.collapsed-box .box-body,
+.box.collapsed-box .box-footer {
+  display: none;
+}
+.collapsed-box .box-header.with-border {
+  border-bottom: none;
+}
+.box-header > .box-tools {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+.box-header > .box-tools [data-toggle="tooltip"] {
+  position: relative;
+}
+.box-header > .box-tools.pull-right .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+.box-header > .box-tools .dropdown-menu > li > a {
+  color: #444!important;
+}
+.btn-box-tool {
+  padding: 5px;
+  font-size: 12px;
+  background: transparent;
+  color: #97a0b3;
+}
+.open .btn-box-tool,
+.btn-box-tool:hover {
+  color: #606c84;
+}
+.btn-box-tool.btn:active {
+  box-shadow: none;
+}
+
+tr td a{
+  font-size: 0.88rem !important;
 }

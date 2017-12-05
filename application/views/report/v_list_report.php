@@ -1,71 +1,66 @@
 <?php $this->load->view('asset'); ?>
- 
- 
+<?php $this->load->view('navigasi'); ?>
+		<div class="container-fluid dashboard px-4">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<!-- Latest Report -->
+						<div class="box" >
+						  	<div class="box-header">
+									<?php
+									foreach ($user as $u) {
+										$id_user	 	= $u->id_user;
+										$nama_user 		= $u->nama_user;
+									}
+									 ?>
+						    	<h3 class="box-title"><?php echo $nama_user ?> Report</h3>
+						  	</div>
+						  	<div class="box-body" style="min-height:450px">
+						  		<table class="table table-condensed table-hover">
+                    <?php
+                    		foreach ($list_report as $u1) {
+                    			$id_report	 	= $u1->id_report;
+                    			$date_report 	= $u1->date_report;
+                    			$nama_project 	= $u1->nama_project;
+                    			echo'
+                    				<tr>
+                    					<td>
+                    					  <a  href="'.base_url().'index.php/view/report/'.$id_report.'" >
+                    						'.$nama_project.'
+                    					  </a>
+                    					</td>
+                    					<td>'.$nama_user.'</td>
+                    					<td>'.$date_report.'</td>
+                    					<td>
+                    				';
+                    			if($this->session->userdata('id_user') == $id_user){
 
-<table class="table table-bordered">
-<?php
-		foreach ($user as $u) {
-			$id_user	 	= $u->id_user;
-			$nama_user 		= $u->nama_user;
-		}
-		foreach ($list_report as $u1) {
-			$id_report	 	= $u1->id_report;
-			$date_report 	= $u1->date_report;
-			//$id_project 	= $u1->id_project;
-			$nama_project 	= $u1->nama_project;
-
-
-		
-			echo'
-				<tr>
-					<td>
-					  <a class="btn btn-link"  href="'.base_url().'index.php/view/report/'.$id_report.'" >
-						'.$nama_project.'
-					  </a>
-					</td>
-					<td>'.$nama_user.'</td>
-					<td>'.$date_report.'</td>
-					<td>
-				';	
-
-			if($this->session->userdata('id_user') == $id_user){
-
-				echo'
-							<a href="'.base_url().'index.php/edit/report/'.$id_report.'">Edit</a>
-							<a href="#" onclick="delete_report('.$id_report.')">Hapus</a>
-					';
-
-				}
-			echo'		
-					</td>
-				</tr>
-			';
-		}	
-		if(isset($id_report) == null){
-			echo'<h2>Tidak ada report dari user ini !!</h2>';
-		}
-	
-	
-
-?>
-
-</table>
-<br/>
-<?php
-//if($this->session->userdata('akses') == 'admin'){
-
-		echo'	<button onclick="close_fom()">X Close</button>';
-
-	//}
-?>
-
-<a href="<?php echo base_url('index.php/home');?> ">Home </a>
-<a href="<?php echo base_url('index.php/manage_user');?> ">manage user</a>
-<hr/>
+                    				echo'
+                    							<a href="'.base_url().'index.php/edit/report/'.$id_report.'">Edit</a>
+                    							<a href="#" onclick="delete_report('.$id_report.')">Hapus</a>
+                    					';
+                    				}
+                    			echo'
+                    					</td>
+                    				</tr>
+                    			';
+                    		}
+                    		if(isset($id_report) == null){
+                    			echo'<h2>Tidak ada report dari user ini !!</h2>';
+                    		}
+                    ?>
+						  		</table>
+						  	</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 <div id="board">
-	
 </div>
-
+<?php $this->load->view('function'); ?>
 <script type="text/javascript">
 	function close_fom(){
 		$('#board').empty();
@@ -89,13 +84,13 @@
 					data : {id:id},
 					url: "<?php echo base_url('index.php/report/c_report/delete_report'); ?>",
 					success: function(){
-							
+
 					}
 				}); location.reload();
 
 	    // return false;
-	   
-		} 
+
+		}
 	}
 
 	function edit_report(id) {
@@ -111,7 +106,7 @@
 								$('#board').html(data);
 							}
 				});
-		} 
+		}
 	function view_report(id) {
 		    $('#board').empty();
 
@@ -125,5 +120,5 @@
 								$('#board').html(data);
 							}
 				});
-		} 
+		}
 </script>

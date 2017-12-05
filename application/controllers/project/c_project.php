@@ -1,5 +1,5 @@
 <?php
-  
+
 class c_project extends CI_Controller
 {
 
@@ -15,10 +15,9 @@ if ($this->session->userdata('akses') == null) {
 				}
 }
 
-// FUNGSI ADMIN BUAT CRUD PROJECT ............!!!!! HERE 
+// FUNGSI ADMIN BUAT CRUD PROJECT ............!!!!! HERE
 
 	function index(){
-			$this->load->view('asset');
 
 		if($this->session->userdata('akses') == 'admin'){
 			$data['all_project'] = $this->m_project->m_list_project();
@@ -35,13 +34,37 @@ if ($this->session->userdata('akses') == null) {
 
 	function add_project(){
 		$data['all_candidat'] = $this->m_project->m_all_candidate();
-		
+
 		$data['aksi'] = 'add new';
 		$this->load->view('project/v_form_project', $data);
 	}
 
 	function insert_project(){
+		$cek_members 	= $this->input->post('members');
+
+
+		if(isset($cek_members)){
+			$cek_role 		= $this->input->post('role');
+			$n_members 		= count($cek_members);
+	        $n_roles 		= count($cek_role);
+
+	         if($n_members == $n_roles){
+				$result = $this->m_project->m_insert_project($_POST);
+	        	$data['msg'] = 'sukses';
+	        }else if($n_members > $n_roles){
+	            $data['msg'] = 'pastikan role user telah di tentukan!!';
+	        }
+	     	else if($n_members < $n_roles){
+	            $data['msg'] = 'pilih satu role untuk tiap user!!';
+	        }
+	     }
+
+
+		else {
 			$result = $this->m_project->m_insert_project($_POST);
+			 $data['msg'] = 'sukses';
+		}
+	        echo json_encode($data);
 	}
 
 	function view_project($id = 1){
@@ -50,7 +73,7 @@ if ($this->session->userdata('akses') == null) {
 
 	    /*if($aksi == 'edit'){
 	      $id = $this->input->POST('id');
-	    } 
+	    }
 	    else if(isset($aksi) == null){
 	      $id = $this->uri->segment('2');//
 	    }*/
@@ -60,27 +83,52 @@ if ($this->session->userdata('akses') == null) {
 	      if(count($data['roles']) == 1){
 	        $data['actor'] = 'team member';
 	      }else $data['actor'] = 'not team member';
-	      
+
 
 	      $data['data_project'] = $this->m_project->m_view_project($id);
 	      $data['member'] = $this->m_project->m_view_p_members($id);
 	      $data['task'] = $this->m_project->m_view_p_task($id);
-	    
+
 	     if($aksi == 'edit'){
 	      $data['aksi'] = 'edit';
 	      $data['candidat'] = $this->m_project->m_candidate($id);
 
 	      $this->load->view('project/v_form_project', $data);
 	      }
-	      
+
 	      else if(isset($aksi) == 'view'){
 	        $this->load->view('project/v_info_project', $data);
-	      } 
-	      //echo json_encode($data); 
+	      }
+	      //echo json_encode($data);
 	    }
 
 	function update_project(){
-		$result = $this->m_project->m_update_project($_POST);
+		$cek_members 	= $this->input->post('members');
+
+
+		if(isset($cek_members)){
+			$cek_role 		= $this->input->post('role');
+			$n_members 		= count($cek_members);
+	        $n_roles 		= count($cek_role);
+
+	         if($n_members == $n_roles){
+				$result = $this->m_project->m_update_project($_POST);
+	        	$data['msg'] = 'sukses';
+	        }else if($n_members > $n_roles){
+	            $data['msg'] = 'pastikan role user telah di tentukan!!';
+	        }
+	     	else if($n_members < $n_roles){
+	            $data['msg'] = 'pilih satu role untuk tiap user!!';
+	        }
+	     }
+
+
+		else {
+			$result = $this->m_project->m_update_project($_POST);
+			 $data['msg'] = 'sukses';
+		}
+	        echo json_encode($data);
+
 	}
 
 	function delete_project(){
@@ -89,20 +137,5 @@ if ($this->session->userdata('akses') == null) {
 		$this->m_project->m_delete_project($id);
 	}
 
-
-
-	/*function view_project0($id = NULL){
-		//$id = $this->input->POST('id');
-
-		$data['project'] = $this->m_project->m_view_project($id);
-		$data['members'] = $this->m_project->m_view_p_members($id);
-		$data['task'] = $this->m_project->m_view_p_task($id);
-
-
-		//echo json_encode($data); 
-		$this->load->view('project/v_project', $data); 
-	} */
-
 }
-
 ?>

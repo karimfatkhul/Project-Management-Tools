@@ -1,5 +1,4 @@
 <?php
-//$aksi = 'add new';
 if($aksi == 'edit'){
 	foreach ($data_member as $u2) {
 		$id_user 	= $u2->id_user;
@@ -12,7 +11,6 @@ if($aksi == 'edit'){
 		$box_title  = 'Edit User';
 	}
 }
-
 else if($aksi == 'add new'){
 		$id_user 	= null;
 		$nama_user 	= null;
@@ -35,6 +33,7 @@ else if($aksi == 'add new'){
 						<div class="box-header">
 							<h3 class="box-title"><?php echo $box_title ?></h3>
 						</div>
+						<!-- Form for creating user -->
 						<div class="box-body">
 							<form  name="form_user" id="form_user">
 							  <div class="row">
@@ -108,6 +107,7 @@ else if($aksi == 'add new'){
 		</div>
 	</div>
 </body>
+<?php $this->load->view('function'); ?>
 <script>
 	$(document).ready(function(){
 		$("#form_user").submit(function(e){
@@ -138,19 +138,6 @@ else if($aksi == 'add new'){
 
 
 	})
-	function openNav() {
-	    document.getElementById("mySidenav").style.width = "200px";
-	    document.getElementById("main").style.marginLeft = "200px";
-	    document.getElementById("nav").style.marginLeft = "200px";
-	    document.getElementById("burger").style.display = "none";
-	}
-
-	function closeNav() {
-	    document.getElementById("mySidenav").style.width = "0";
-	    document.getElementById("main").style.marginLeft= "0";
-	    document.getElementById("nav").style.marginLeft = "auto";
-	    document.getElementById("burger").style.display = "block";
-	}
 $("#form_user").validate();
 </script>
 </html>

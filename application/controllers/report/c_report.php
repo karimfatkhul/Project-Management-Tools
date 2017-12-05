@@ -1,5 +1,5 @@
 <?php
-  
+
 class c_report extends CI_Controller
 {
 
@@ -15,20 +15,24 @@ if ($this->session->userdata('akses') == null) {
 				   redirect(base_url());
 				}
 }
- 
+
 	function index(){
 
 		$data['akses']	 = $this->session->userdata('akses');
+    $date = date('Y-m-d');
 
-		
 		if($data['akses'] == 'admin'){
 			$data['list_user'] = $this->db->get('tabel_user')->result();
-			$data['the_report'] = $this->db->get('tabel_report')->result();
+                             $this->db->order_by('id_report','desc');
+      $data['last_report'] = $this->db->get('tabel_report')->result();
+      $data['today_report'] = $this->m_report->m_today_report($date);
+
 		}
+    /*
 		else if($data['akses'] == 'user'){
 			$id_user	 		 = $this->session->userdata('id_user');
 			$data['list_report'] = $this->m_report->m_list_report($id_user);
-		}
+		}*/
 		$this->load->view('report/v_page_report', $data);
 
 
@@ -45,22 +49,34 @@ if ($this->session->userdata('akses') == null) {
 
 	}
 
-	function create_report(){
-			$data['aksi'] = 'add new';
+  function requesto_create_report(){
 			$id = $this->input->POST('id');
 			$id_user = $this->session->userdata('id_user');
+			$date 	 = date('Y-m-d');
 
-			
 
 		  				   $this->db->select('id_report');
           	 			   $this->db->where('from_id_project', $id);
           	 			   $this->db->where('from_id_user', $id_user);
+          	 			   $this->db->where('date_report', $date);
           	 $on_preport = $this->db->get('tabel_report')->num_rows();
 
           	 if($on_preport <= 0 || $on_preport == null){
 
-				$data['data_project'] = $this->m_project->m_view_project($id);	
-						  	
+
+			  	echo $konfirmasi = 'ok';
+           	}else if($on_preport > 0 || $on_preport != null){
+           		echo $konfirmasi = 'report telah dibuat, tidak dapat membuat baru silahkan edit dari report yang telah anda buat!';
+           	}
+
+	}
+
+	function create_report(){
+		$data['aksi'] = 'add new';
+		$id_user = $this->session->userdata('id_user');
+		$id = $this->uri->segment('3');
+				$data['data_project'] = $this->m_project->m_view_project($id);
+
 			  	$data['task'] =$this->m_report->m_report_task($id,$id_user);
 			  	$data['n_task'] = count($data['task']);
 			  	$data['activity'] =$this->m_report->m_report_activity($id_user);
@@ -68,13 +84,8 @@ if ($this->session->userdata('akses') == null) {
 			  	$data['list'] =$this->m_report->m_report_list();
 			  	$data['n_list'] = count($data['list']);
 
-			  	$this->load->view('report/v_report_project', $data);
-
-           	}else if($on_preport > 0 || $on_preport != null){
-           		echo $konfirmasi = 'report telah dibuat, tidak dapat membuat baru silahkan edit dari report yang telah anda buat!';
-           	}
-	
-	} 
+			  	$this->load->view('report/v_form_report', $data);
+	}
 	function view_report($id = 1){
 		$id = $this->uri->segment('3'); // $this->input->POST('id');
 		$data['aksi'] = $this->uri->segment('1'); // $this->input->POST('aksi');
@@ -88,7 +99,7 @@ if ($this->session->userdata('akses') == null) {
             foreach ($get_id->result() as $ku) {
                 $id_project = $ku->from_id_project;
                 $id_user = $ku->from_id_user;
-            }			  	
+            }
 			  	$data['task'] =$this->m_report->m_report_task($id_project,$id_user);
 			  	$data['n_task'] = count($data['task']);
 			  	$data['activity'] =$this->m_report->m_report_activity($id_user);
@@ -97,20 +108,20 @@ if ($this->session->userdata('akses') == null) {
 			  	$data['n_list'] = count($data['list']);
 
 		if($data['aksi'] == 'edit'){
-			//echo json_encode($data); 
-			$this->load->view('report/v_report_project', $data);
+			//echo json_encode($data);
+			$this->load->view('report/v_form_report', $data);
 		}else{
-			//echo json_encode($data); 
+			//echo json_encode($data);
 			$this->load->view('report/v_info_report', $data);
 		}
 	}
 
 	function report_project($id = 1){
 		$id_project = $this->uri->segment('3');
-		$data['data_report'] = $this->m_report->m_project_report($id_project); 
+		$data['data_report'] = $this->m_report->m_project_report($id_project);
 
-		//echo json_encode($data); 
-		$this->load->view('report/v_project_report', $data);
+		//echo json_encode($data);
+		$this->load->view('report/v_form_report', $data);
 
 	}
 

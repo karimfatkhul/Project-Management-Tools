@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
- 
+
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'c_login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
- 
+
 $route['home'] = 'c_navigasi';
 $route['logout'] = 'c_login/out';
 
@@ -68,8 +68,8 @@ $route['edit/project/(:any)'] = 'project/c_project/view_project/(:any)';
 $route['view/project/(:any)'] = 'project/c_project/view_project/(:any)';
 $route['report/project/(:any)'] = 'report/c_report/report_project/(:any)';
 
+$route['create/report/(:any)'] = 'report/c_report/create_report';
 $route['report'] = 'report/c_report';
 $route['list/report/(:any)'] = 'report/c_report/list_report/(:any)';
 $route['view/report/(:any)'] = 'report/c_report/view_report/(:any)';
 $route['edit/report/(:any)'] = 'report/c_report/view_report/(:any)';
-$route['manage_user/setting/user/(:any)'] = 'manage_user/c_manage_user/password_user/(:any)';

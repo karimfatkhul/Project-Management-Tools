@@ -1,4 +1,5 @@
 <?php $this->load->view('asset'); ?>
+<?php $this->load->view('navigasi'); ?>
 <?php
 	//$aksi = 'add new';
 	if($aksi == 'edit'){
@@ -28,48 +29,7 @@
 
 			$new_member = $all_candidat;
 	}
-
 ?>
-<!Doctype html>
-<html>
-<head>
-	<title><?php echo $title ?></title>
-<body>
-	<div id="mySidenav" class="sidenav">
-	  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	  	<div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/manage_user');?>">Manage User</a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/project');?>"><span data-hover="Manage Project">Manage Project</span></a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/report');?>">Reports</a>
-        </div>
-        <div class="cl-effect-1">
-            <a href="<?php echo base_url('index.php/logout');?>">Sign Out</a>
-        </div>
-	</div>
-	<div id="main">
-		<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-		  	<div class="container-fluid"  id="nav">
-		  		<span id="burger" style="font-size:30px;cursor:pointer;margin-right:20px" onclick="openNav()">&#9776;</span>
-		  		<!-- <a class="navbar-brand" href="#">Solusi247</a> -->
-	  			<ul class="navbar-nav mx-auto">
-                        <li class="nav-item  cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/c_navigasi');?>"><i class="material-icons">dashboard</i><span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item  cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/manage_user/add/user');?>"><i class="material-icons">person_add</i> 
-                       </a>
-                    </li>
-                    <li class="nav-item active cl-effect-12">
-                        <a class="nav-link" href="<?php echo base_url('index.php/add/project');?> "><i class="material-icons">create_new_folder</i> 
-                        </a>
-                    </li>
-                </ul>
-		  	</div>
-		</nav>
 		<div class="container-fluid dashboard px-4">
 			<div class="row">
 				<div class="col-md-12">
@@ -112,18 +72,19 @@
 							  	<div class="col-md-5 ml-3">
 							  		<div class="col-md-12">
 							  			<h3 class="form-title" style="font-size:1rem;display: inline-block;">Add Project Member</h3>
-							  			  	<div class="col-sm-4 float-right pr-0" style="margin-bottom:  2rem!important;">
+							  			  	<div class="col-sm-6 float-right pr-0" style="margin-bottom:  2rem!important;">
 							  			    	<div class="input-group input-group-sm">
-							  			        	<input type="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+							  			        	<input type="text" class="form-control" placeholder="Search for..." id="myInput" aria-label="Search for..." onkeyup="myFunction()">
 							  			        	<span class="input-group-btn">
 							  			          		<button class="btn btn-primary" type="button">Go!</button>
 							  			        	</span>
 							  			    	</div>
 							  			  	</div>
 							  		</div>
-							  		
+
 							  		<div class="col-sm-12">
-							  			<table class="table table-condensed">
+							  			<h4 id="msg"></h4>
+							  			<table class="table table-condensed" id="myTable">
 							  				<?php
                             foreach ($new_member as $u3) {
 
@@ -133,26 +94,53 @@
                                     </td><td>
                                 ';
 
-                               if($aksi == 'add new'){
-                              echo '  
-                                <input type="checkbox" name="members[]" value="'.$u3->id_user.'" class="member"></input>
+                                                              if($aksi == 'add new'){
+                              echo '
+
+                                <input type="checkbox" name="members[]" value="'.$u3->id_user.'" class="member" id="'.$u3->id_user.'"  ></input>
+                                <input type="checkbox" name="role[]" value="Project leader" id="role1'.$u3->id_user.'" onchange="selct(2,'.$u3->id_user.')" class="rl'.$u3->id_user.'"  style="display:none;"><span class="rl'.$u3->id_user.'" style="display:none;">Project leader</span></input>
+																<input type="checkbox" name="role[]" value="Project developer" id="role2'.$u3->id_user.'" onchange="selct(1,'.$u3->id_user.')" class="rl'.$u3->id_user.'" style="display:none;"><span class="rl'.$u3->id_user.'" style="display:none;">Project developer</span></input>
+
                                 ';
                             } else if($aksi == 'edit'){
-                              
-                              $input = null;
-                              foreach ($member as $ui3) {
 
+                              $input = null;
+
+
+
+                              $set = '
+		                                <input type="checkbox" name="role[]" value="project leader" id="role1'.$u3->id_user.'" onchange="selct(2,'.$u3->id_user.')" class="rl'.$u3->id_user.'"  style="display:none;"><span class="rl'.$u3->id_user.'" style="display:none;">Project leader</span></input>
+																		<input type="checkbox" name="role[]" value="project developer" id="role2'.$u3->id_user.'" onchange="selct(1,'.$u3->id_user.')" class="rl'.$u3->id_user.'"  style="display:none;"><span class="rl'.$u3->id_user.'" style="display:none;">Project developer</span></input>';
+
+                              foreach ($member as $ui3) {
+                              	$role = 'none';
                                 if($u3->id_user == $ui3->id_user){
-                                  $input = '<input type="checkbox" name="members[]" value="'.$u3->id_user.'" class="member" checked></input>';
+                                	$role = $ui3->role;
+                                  $input = '<input type="checkbox" name="members[]" value="'.$u3->id_user.'" class="member"  id="'.$u3->id_user.'"  checked></input>';
+                                  if($role == 'project leader'){
+                                  			$set = '
+		                                <input type="checkbox" name="role[]" value="project leader" id="role1'.$u3->id_user.'" onchange="selct(2,'.$u3->id_user.')" class="rl'.$u3->id_user.'"  style="display:;" checked><span class="rl'.$u3->id_user.'" style="display:;">Project leader</span></input>
+																		<input type="checkbox" name="role[]" value="project developer" id="role2'.$u3->id_user.'" onchange="selct(1,'.$u3->id_user.')"  class="rl'.$u3->id_user.'"  style="display:;"><span class="rl'.$u3->id_user.'" style="display:;">Project developer</span></input>';
+                                  }else if($role == 'project developer'){
+                                  	 		$set = '
+		                                <input type="checkbox" name="role[]" value="project leader" id="role1'.$u3->id_user.'" onchange="selct(2,'.$u3->id_user.')"  class="rl'.$u3->id_user.'"  style="display:inline;"><span class="rl'.$u3->id_user.'" style="display:inline;">Project leader</span></input>
+																		<input type="checkbox" name="role[]" value="project developer" id="role2'.$u3->id_user.'" onchange="selct(1,'.$u3->id_user.')" class="rl'.$u3->id_user.'"  style="display:;" checked><span class="rl'.$u3->id_user.'" style="display:;">Project developer</span></input>';
+                                  }
+
+
+
                                 }
-                                  
+
                               }
                                 if($input == null){
-                                  $input = '<input type="checkbox" name="members[]" value="'.$u3->id_user.'" class="member" ></input>';
-                                }  
+                                  $input = '<input type="checkbox" name="members[]" value="'.$u3->id_user.'" class="member" id="'.$u3->id_user.'"  ></input>';
 
 
-                              echo $input;      
+                                }
+
+
+                              echo $input;
+                              echo $set;
 
                             }
 
@@ -165,9 +153,9 @@
 							  		</div>
 							  	</div>
 							  </div>
-							
-							  
-							  <div class="form-group mt-3"> 
+
+
+							  <div class="form-group mt-3">
 							    <div class="col-sm-offset-2 col-sm-10">
 							      <button type="submit" class="btn btn-default mr-3">Cancel</button>
 							      <button type="submit" class="btn btn-primary">Save</button>
@@ -181,21 +169,7 @@
 		</div>
 	</div>
 </body>
-<script>
-	function openNav() {
-	    document.getElementById("mySidenav").style.width = "200px";
-	    document.getElementById("main").style.marginLeft = "200px";
-	    document.getElementById("nav").style.marginLeft = "200px";
-	    document.getElementById("burger").style.display = "none";
-	}
-
-	function closeNav() {
-	    document.getElementById("mySidenav").style.width = "0";
-	    document.getElementById("main").style.marginLeft= "0";
-	    document.getElementById("nav").style.marginLeft = "auto";
-	    document.getElementById("burger").style.display = "block";
-	}
-</script>
+<?php $this->load->view('function'); ?>
 <script>
 	$(document).ready(function(){
 	    $("#form_project").submit(function(e){
@@ -218,17 +192,37 @@
 						data : $('#form_project').serialize(),
 						url: url,
 						success: function(data){
-							
-							//$('#put2').text(data);
-							$('#form_project')[0].reset();
+
+							if(data != 'sukses'){
+								$('#msg').html(data['msg']);
+							}else {
+
+								if(aksi=='add new'){
+									console.log(id_task,member);
+									//$('#msg').html(data['msg']);
+							       location.reload();
+							     }else if(aksi =='edit'){
+							      // document.location.href ="<?php echo base_url('index.php/project'); ?>" ;
+							     }
+							}
 						}
 			});
-			if(aksi=='add new'){
-			       location.reload();
-			     }else if(aksi =='edit'){
-			       document.location.href ="<?php echo base_url('index.php/project'); ?>" ;
-			     }
-	    });	   
+
+	    });
+			$(".member").change(function() {
+				var id = $(this).attr('id');
+        if(this.checked) {
+						$(".rl"+String(id)).css('display','');
+					}else {
+						$(".rl"+String(id)).prop('checked',false);
+						$(".rl"+String(id)).css('display','none');
+					}
+			});
 });
+function selct(no,id){
+
+	console.log(no,id);
+	 $("#role"+String(no)+String(id)).prop('checked',false);
+}
 </script>
 </html>

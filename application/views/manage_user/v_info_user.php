@@ -3,14 +3,14 @@
 		<div class="container-fluid dashboard px-4">
 			<div class="row">
 				<div class="col-md-12">
+					//User Details
 					<div class="box">
 					  	<div class="box-header">
 					    	<h3 class="box-title">User Details</h3>
 					  	</div>
-					  	<!-- /.box-header -->
 					  	<div class="box-body">
+									//Load user data
 					  			<?php
-
 					  					foreach ($data_member as $u2) {
 					  						$id_user 	= $u2->id_user;
 					  						$nama_user 	= $u2->nama_user;
@@ -19,9 +19,6 @@
 					  						$no_tlp 	= $u2->no_tlp;
 					  						$akses 		= $u2->akses;
 					  					}
-
-
-
 					  			echo '
 					  			<dl class="dl-horizontal">
 					  					<dt>
@@ -67,7 +64,6 @@
 									 <div class="form-group mt-3">
 							    		<div class="col-sm-offset-2 col-sm-10">
 							      	<a type="submit" class="button btn btn-default mr-3 text-dark" href="<?php echo base_url('index.php/manage_user/')?>">Back</a>
-
 							    </div>
 							  </div>
 					  	</div>
@@ -77,19 +73,6 @@
 		</div>
 	</div>
 </body>
-<script>
-function openNav() {
-    document.getElementById("mySidenav").style.width = "200px";
-    document.getElementById("main").style.marginLeft = "200px";
-    document.getElementById("nav").style.marginLeft = "200px";
-    document.getElementById("burger").style.display = "none";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-    document.getElementById("nav").style.marginLeft = "auto";
-    document.getElementById("burger").style.display = "block";
-}
+<?php $this->load->view('function');?>
 </script>
 </html>
